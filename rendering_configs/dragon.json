@@ -1,0 +1,246 @@
+[
+    {
+        "file_pattern": "*dragon*",
+        "image":
+        {
+            "res_x":720,
+            "res_y":420,
+            "samples":50,
+            "exposure":1.0
+        },
+        "mesh":
+        {
+            "location":[-0.05, 0.0, 0.0],
+            "rotation":[90, 0, 180],
+            "scale":[1.4, 1.4, 1.4],
+            "color":[0.564705882, 0.823529412, 0.925490196, 1]
+        },
+        "shading":"flat",
+        "AOStrength":0.5,
+        "lights":
+        [
+            {
+                "type":"area",
+                "location":[0.0, 0.0, 4.0],
+                "rotation":[0.0, 0.0, 0.0],
+                "intensity":20.0,
+                "size":1,
+                "shadow":true
+            },
+            {
+                "type":"area",
+                "location":[7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 90.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[-7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 270.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[0.0, -7.68, 1.45],
+                "rotation":[84.5, 0.0, 0.0],
+                "intensity":800,
+                "size":4,
+                "shadow":false,
+                "color":[0.564705882, 0.823529412, 0.925490196]
+            }
+        ],
+        "camera":
+        {
+            "location":[0.0, -2.10, 0.52],
+            "lookAt":[84.5597, 0.0, 0.0],
+            "scale":1.5
+        }
+    },
+    {
+        "file_pattern": "*dragon*",
+        "image":
+        {
+            "res_x":720,
+            "res_y":420,
+            "samples":50,
+            "exposure":1.0
+        },
+        "mesh":
+        {
+            "location":[0.05, 0.0, 0.0],
+            "rotation":[90, 0, 0],
+            "scale":[1.4, 1.4, 1.4],
+            "color":[0.564705882, 0.823529412, 0.925490196, 1]
+        },
+        "shading":"flat",
+        "AOStrength":0.5,
+        "lights":
+        [
+            {
+                "type":"area",
+                "location":[0.0, 0.0, 4.0],
+                "rotation":[0.0, 0.0, 0.0],
+                "intensity":20.0,
+                "size":1,
+                "shadow":true
+            },
+            {
+                "type":"area",
+                "location":[7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 90.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[-7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 270.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[0.0, -7.68, 1.45],
+                "rotation":[84.5, 0.0, 0.0],
+                "intensity":800,
+                "size":4,
+                "shadow":false,
+                "color":[0.564705882, 0.823529412, 0.925490196]
+            }
+        ],
+        "camera":
+        {
+            "location":[0.0, -2.10, 0.52],
+            "lookAt":[84.5597, 0.0, 0.0],
+            "scale":1.5
+        }
+    },
+    {
+        "file_pattern": "*dragon*",
+        "image":
+        {
+            "res_x":720,
+            "res_y":720,
+            "samples":50,
+            "exposure":1.0
+        },
+        "mesh":
+        {
+            "location":[-0.05, 0.0, 0.0],
+            "rotation":[90, 0, 180],
+            "scale":[1.4, 1.4, 1.4],
+            "color":[0.564705882, 0.823529412, 0.925490196, 1]
+        },
+        "shading":"flat",
+        "AOStrength":0.5,
+        "lights":
+        [
+            {
+                "type":"area",
+                "location":[0.0, 0.0, 4.0],
+                "rotation":[0.0, 0.0, 0.0],
+                "intensity":20.0,
+                "size":1,
+                "shadow":true
+            },
+            {
+                "type":"area",
+                "location":[7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 90.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[-7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 270.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[0.0, -7.68, 1.45],
+                "rotation":[84.5, 0.0, 0.0],
+                "intensity":800,
+                "size":4,
+                "shadow":false,
+                "color":[0.564705882, 0.823529412, 0.925490196]
+            }
+        ],
+        "camera":
+        {
+            "location":[-1.62, -2.10, 0.6],
+            "lookAt":[83.7562, 0.0, -36.9953],
+            "scale":0.4
+        }
+    },
+    {
+        "file_pattern": "*dragon*",
+        "image":
+        {
+            "res_x":720,
+            "res_y":720,
+            "samples":50,
+            "exposure":1.0
+        },
+        "mesh":
+        {
+            "location":[-0.05, 0.0, 0.0],
+            "rotation":[90, 0, 180],
+            "scale":[1.4, 1.4, 1.4],
+            "color":[0.564705882, 0.823529412, 0.925490196, 1]
+        },
+        "shading":"flat",
+        "AOStrength":0.5,
+        "lights":
+        [
+            {
+                "type":"area",
+                "location":[0.0, 0.0, 4.0],
+                "rotation":[0.0, 0.0, 0.0],
+                "intensity":20.0,
+                "size":1,
+                "shadow":true
+            },
+            {
+                "type":"area",
+                "location":[7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 90.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[-7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 270.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[0.0, -7.68, 1.45],
+                "rotation":[84.5, 0.0, 0.0],
+                "intensity":800,
+                "size":4,
+                "shadow":false,
+                "color":[0.564705882, 0.823529412, 0.925490196]
+            }
+        ],
+        "camera":
+        {
+            "location":[-1.1, -0.81, 0.9],
+            "lookAt":[66.4187, 0.0, -36.5289],
+            "scale":0.55
+        }
+    }
+]

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>three.js webgl - PLY</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fff;
+            color: #444;
+        }
+
+        a {
+            color: #08f;
+        }
+
+        #content {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+            padding: 3em 0 0 0;
+        }
+
+        #c {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .list-item {
+            display: inline-block;
+            margin: 1em;
+            padding: 1em;
+            box-shadow: 1px 2px 4px 0px rgba(0, 0, 0, 0.25);
+        }
+
+        .list-item>div:nth-child(1) {
+            width: 200px;
+            height: 200px;
+        }
+
+        .list-item>div:nth-child(2) {
+            color: #888;
+            font-family: sans-serif;
+            font-size: large;
+            width: 200px;
+            margin-top: 0.5em;
+        }
+    </style>
+
+</head>
+
+<body>
+    <canvas id="c"></canvas>
+
+    <div id="content"></div>
+
+    <script type="module">
+
+        import * as THREE from 'https://cdn.skypack.dev/three@0.132.2';
+        import { PLYLoader } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/loaders/PLYLoader.js';
+        import { OrbitControls } from 'https://cdn.skypack.dev/three@0.132.2/examples/jsm/controls/OrbitControls.js';
+
+        let container, canvas;
+
+        let renderer;
+        const scenes = [];
+        const models = [replace_here];
+
+        init();
+        animate();
+
+        function init() {
+
+            canvas = document.getElementById("c");
+            const content = document.getElementById('content');
+
+            for (let i = 0; i < models.length; i++) {
+
+                const scene_name = models[i].substring(2, models[i].length-4);
+
+                const scene = new THREE.Scene();
+
+                // make a list item
+                const element = document.createElement('div');
+                element.className = 'list-item';
+
+                const sceneElement = document.createElement('div');
+
+                element.appendChild(sceneElement);
+
+                const descriptionElement = document.createElement('div');
+                // descriptionElement.innerText = 'Scene ' + (i + 1);
+                descriptionElement.innerText = scene_name;
+                element.appendChild(descriptionElement);
+
+                // the element that represents the area we want to render the scene
+                scene.userData.element = sceneElement;
+                content.appendChild(element);
+
+                // add one random mesh to each scene
+                let new_scene = generate_scene(scene, models[i]);
+
+                scenes.push(new_scene);
+            }
+
+            // renderer
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.outputEncoding = THREE.sRGBEncoding;
+
+            renderer.shadowMap.enabled = true;
+
+            // renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true } );
+			// 	renderer.setClearColor( 0xffffff, 1 );
+			// 	renderer.setPixelRatio( window.devicePixelRatio );
+
+            // container.appendChild(renderer.domElement);
+
+
+            // resize
+
+            window.addEventListener('resize', onWindowResize);
+
+        }
+
+        function generate_scene(scene, path) {
+
+            const camera = new THREE.PerspectiveCamera( 35, 1, 0.1, 10 );
+            camera.position.set(2.0, 0.15, 0.1);
+
+            const cameraTarget = new THREE.Vector3(0, 0.0, 0);
+
+            scene.userData.camera = camera;
+
+            scene.background = new THREE.Color(0x72645b);
+            scene.fog = new THREE.Fog(0x72645b, 2, 15);
+
+
+            // Ground
+
+            const plane = new THREE.Mesh(
+                new THREE.PlaneGeometry(40, 40),
+                new THREE.MeshPhongMaterial({ color: 0x999999, specular: 0x101010 })
+            );
+            plane.rotation.x = - Math.PI / 2;
+            plane.position.y = - 0.5;
+            scene.add(plane);
+
+            plane.receiveShadow = true;
+
+            // PLY file
+
+            const loader = new PLYLoader();
+            loader.load(path, function (geometry) {
+
+                geometry.computeVertexNormals();
+
+                // const material = new THREE.MeshStandardMaterial({ color: 0x0055ff, flatShading: true });
+                const material = new THREE.MeshStandardMaterial({ color: 0xFFFFFF, vertexColors: THREE.VertexColors, flatShading: true });
+                material.vertexColors = THREE.VertexColors;
+                material.side = THREE.DoubleSide;
+                const mesh = new THREE.Mesh(geometry, material);
+
+                mesh.position.z -= Math.min(mesh.position.z);
+
+                mesh.castShadow = true;
+                mesh.receiveShadow = false;
+
+                scene.add(mesh);
+                console.log('loaded');
+
+
+
+            });
+
+            // Lights
+
+            scene.add(new THREE.HemisphereLight(0x443333, 0x111122));
+
+            addShadowedLight(1, 1, 1, 0xffffff, 1.35, scene);
+            addShadowedLight(0.5, 1, - 1, 0xffaa00, 1, scene);
+
+            const controls = new OrbitControls(scene.userData.camera, scene.userData.element);
+            scene.userData.controls = controls;
+
+            return scene;
+        }
+
+        function addShadowedLight(x, y, z, color, intensity, scene) {
+
+            const directionalLight = new THREE.DirectionalLight(color, intensity);
+            directionalLight.position.set(x, y, z);
+            scene.add(directionalLight);
+
+            directionalLight.castShadow = true;
+
+            const d = 1;
+            directionalLight.shadow.camera.left = - d;
+            directionalLight.shadow.camera.right = d;
+            directionalLight.shadow.camera.top = d;
+            directionalLight.shadow.camera.bottom = - d;
+
+            directionalLight.shadow.camera.near = 1;
+            directionalLight.shadow.camera.far = 4;
+
+            directionalLight.shadow.mapSize.width = 1024;
+            directionalLight.shadow.mapSize.height = 1024;
+
+            directionalLight.shadow.bias = - 0.001;
+
+        }
+
+        function onWindowResize() {
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+        }
+
+        function updateSize() {
+
+            const width = canvas.clientWidth;
+            const height = canvas.clientHeight;
+
+            if (canvas.width !== width || canvas.height !== height) {
+
+                renderer.setSize(width, height, false);
+
+            }
+
+        }
+
+        function animate() {
+            render();
+            requestAnimationFrame(animate);
+        }
+
+        // function render() {
+
+        // 	controls.update();
+
+        // 	renderer.render(scene, camera);
+
+        // }
+        function render() {
+
+            updateSize();
+
+            canvas.style.transform = `translateY(${window.scrollY}px)`;
+
+            renderer.setClearColor(0xffffff);
+            renderer.setScissorTest(false);
+            renderer.clear();
+
+            renderer.setClearColor(0xe0e0e0);
+            renderer.setScissorTest(true);
+
+            scenes.forEach(function (scene) {
+
+                // so something moves
+                // scene.children[0].rotation.y = Date.now() * 0.001;
+
+                // get the element that is a place holder for where we want to
+                // draw the scene
+                const element = scene.userData.element;
+
+                // get its position relative to the page's viewport
+                const rect = element.getBoundingClientRect();
+
+                // check if it's offscreen. If so skip it
+                if (rect.bottom < 0 || rect.top > renderer.domElement.clientHeight ||
+                    rect.right < 0 || rect.left > renderer.domElement.clientWidth) {
+
+                    return; // it's off screen
+
+                }
+
+                // set the viewport
+                const width = rect.right - rect.left;
+                const height = rect.bottom - rect.top;
+                const left = rect.left;
+                const bottom = renderer.domElement.clientHeight - rect.bottom;
+
+                renderer.setViewport(left, bottom, width, height);
+                renderer.setScissor(left, bottom, width, height);
+
+                const camera = scene.userData.camera;
+
+                //camera.aspect = width / height; // not changing in this example
+                //camera.updateProjectionMatrix();
+
+                //scene.userData.controls.update();
+
+                renderer.render(scene, camera);
+
+            });
+
+        }
+
+    </script>
+</body>
+
+</html>

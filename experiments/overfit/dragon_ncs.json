@@ -1,0 +1,137 @@
+{
+    "datasets":
+    {
+        "train":
+        {
+            "name":"PatchGlobalDataset",
+            "num_points":128,
+            "sample_path":"/home/luca/workspace/data/conv_maps/meshes/dragon/xyzrgb_dragon_medium_cut_0.04_463.pth",
+            "batch_size":10,
+            "num_workers":8,
+            "shuffle":true,
+            "pin_memory":false,
+            "mask_normals_type":"circle"
+        }
+    },
+    "models":
+    {
+        "name":"NeuralResConvSurface",
+        "structure":
+        {
+            "input_size":2,
+            "output_size":3,
+            "embeddings":
+            {
+                "name":"Embedding",
+                "params":
+                {
+                    "num_embeddings":463,
+                    "C":8,
+                    "H":4,
+                    "W":4
+                }
+            },
+            "cnn":
+            {
+                "latent_size":4,
+                "latent_depth":8,
+                "channels":[8,8,8,8,8,8],
+                "kernels":[3,3,3,3,3,3,3,3,3,3,3],
+                "act":"LeakyReLU",
+                "init":"xavier"
+            },
+            "mlp":
+            {
+                "layers":[16,16],
+                "act":"LeakyReLU",
+                "init":"xavier",
+                "type":"residual"
+            },
+            "coarse_mlp":
+            {
+                "layers": [64,64,64],
+                "act": "Softplus",
+                "init": "xavier",
+                "type":"residual"
+            }
+        }
+    },
+    "loss":
+    {
+        "name":"SSDLoss",
+        "params":
+        {
+            "reg_normals":0.0
+        }
+    },
+    "optimizers":
+    [
+        {
+            "name": "RMSprop",
+            "params":
+            {
+                "lr": 1.0e-4,
+                "momentum": 0.9
+            },
+            "subset":"coarse"
+        },
+        {
+            "name": "RMSprop",
+            "params":
+            {
+                "lr": 1.0e-4,
+                "momentum": 0.9
+            },
+            "subset":"fine"
+        }
+    ],
+    "schedulers":
+    [
+        {
+            "name":"SingleCosineAnnealingLR",
+            "opt_idx":0,
+            "params":
+            {
+                "T_max": 250000,
+                "eta_min":0.0
+            }
+        }
+    ],
+    "tasks":
+    {
+        "name":"surface",
+        "train":"ConvSurfaceTrainer",
+        "checkpoint":"ConvSurfaceCheckpointer",
+        "params":
+        {
+            "save_patches":false,
+            "save_timelapse":false,
+            "save_kaolin":false
+        }
+    },
+    "logging":
+    {
+        "name":"TensorboardLogger",
+        "namespace":"dragon",
+        "identifier":"",
+        "base_path":"/home/luca/workspace/tensorboard_folders/conv_maps/"
+    },
+    "checkpointing":
+    {
+        "base_path":"/home/luca/workspace/checkpoints/conv_maps/"
+    },
+    "rendering":
+    {
+        "config":"/home/luca/workspace/neuralmap_codebase/rendering_configs/dragon.json"
+    },
+    "loop":
+    {
+        "name": "ModulatingTrainingLoop",
+        "num_epochs":22000,
+        "grad_stop":1.0e-8,
+        "checkpoint_epoch":1000,
+        "target_lr": 1.0e-4,
+        "it_start_transition":400000,
+        "it_end_transition":650000
+    }
+}

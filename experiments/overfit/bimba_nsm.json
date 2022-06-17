@@ -1,0 +1,85 @@
+{
+    "datasets":
+    {
+        "train":
+        {
+            "name":"ModelDataset",
+            "num_points":2048,
+            "sample_path":"/home/luca/data/conv_maps/meshes/bimba/bimba_cut_circle.pth",
+            "num_workers":8,
+            "shuffle":true,
+            "batch_size":null,
+            "pin_memory":false,
+            "mask_normals_type":"circle"
+        }
+    },
+    "models":
+    {
+        "name": "ResidualMLP",
+        "structure": {
+            "input_size": 2,
+            "output_size": 3,
+            "layers": [256,256,256,256,256,256,256,256],
+            "act": "Softplus",
+            "act_params": {},
+            "bias": true,
+            "init": "xavier",
+            "norm":null,
+            "drop":0.0
+        }
+    },
+    "loss":
+    {
+        "name":"MSELoss",
+        "params":
+        {
+            "reg_normals":1.0e-4
+        }
+    },
+    "optimizers":
+    [
+        {
+            "name":"RMSprop",
+            "params":
+            {
+                "lr":1.0e-4,
+                "momentum":0.9
+            }
+        }
+    ],
+    "schedulers": [],
+    "tasks":
+    {
+        "name":"surface",
+        "train":"SurfaceTrainer",
+        "checkpoint":"SurfaceCheckpointer",
+        "params":
+        {
+            "save_patches":false,
+            "save_timelapse":false,
+            "save_kaolin":false
+        }
+    },
+    "logging":
+    {
+        "name":"TensorboardLogger",
+        "namespace":"bimba",
+        "identifier":"",
+        "base_path":"/home/luca/tensorboard_folders/neural_maps/"
+    },
+    "checkpointing":
+    {
+        "base_path":"/home/luca/checkpoints/neural_maps/"
+    },
+    "rendering":
+    {
+        "config":"/home/luca/neuralmap_codebase/rendering_configs/bimba.json"
+    },
+    "loop":
+    {
+        "name": "GradientTrainingLoop",
+        "num_epochs":30000,
+        "grad_stop":1.0e-8,
+        "checkpoint_epoch":3000
+    }
+}

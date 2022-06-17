@@ -1,0 +1,94 @@
+{
+    "datasets":
+    {
+        "train":
+        {
+            "name":"ModelDataset",
+            "num_points":4096,
+            "sample_path":"/home/luca/workspace/data/conv_maps/meshes/dragon/xyzrgb_dragon_medium_cut_0.04_463.pth",
+            "batch_size":null,
+            "num_workers":8,
+            "shuffle":true,
+            "pin_memory":false,
+            "mask_normals_type":"circle"
+        }
+    },
+    "models":
+    {
+        "name":"ResidualMLP",
+        "structure":
+        {
+            "input_size":2,
+            "output_size":3,
+            "layers":[256,256,256,256,256,256,256,256],
+            "act":"Softplus",
+            "bias":true,
+            "init":"xavier"
+        }
+    },
+    "loss":
+    {
+        "name":"SSDLoss",
+        "params":
+        {
+            "reg_normals":1.0e-4
+        }
+    },
+    "optimizers":
+    [
+        {
+            "name": "RMSprop",
+            "params":
+            {
+                "lr": 1.0e-4,
+                "momentum": 0.9
+            }
+        }
+    ],
+    "schedulers":
+    [
+        {
+            "name":"CosineAnnealingLR",
+            "opt_idx":0,
+            "params":
+            {
+                "T_max": 500000
+            }
+        }
+    ],
+    "tasks":
+    {
+        "name":"surface",
+        "train":"SurfaceTrainer",
+        "checkpoint":"SurfaceCheckpointer",
+        "params":
+        {
+            "save_patches":false,
+            "save_timelapse":false,
+            "save_kaolin":false
+        }
+    },
+    "logging":
+    {
+        "name":"TensorboardLogger",
+        "namespace":"dragon",
+        "identifier":"",
+        "base_path":"/home/luca/workspace/tensorboard_folders/conv_maps/"
+    },
+    "checkpointing":
+    {
+        "base_path":"/home/luca/workspace/checkpoints/conv_maps/"
+    },
+    "rendering":
+    {
+        "config":"/home/luca/workspace/neuralmap_codebase/rendering_configs/dragon.json"
+    },
+    "loop":
+    {
+        "name": "GradientTrainingLoop",
+        "num_epochs":2000,
+        "grad_stop":1.0e-8,
+        "checkpoint_epoch":100,
+        "target_lr": 1.0e-4
+    }
+}

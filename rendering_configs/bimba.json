@@ -1,0 +1,185 @@
+[
+    {
+        "file_pattern": "*bimba*",
+        "image":
+        {
+            "res_x":720,
+            "res_y":720,
+            "samples":50,
+            "exposure":1.0
+        },
+        "mesh":
+        {
+            "location":[0.0, 0.0, 0.0],
+            "rotation":[90, 0, 0],
+            "scale":[1.0, 1.0, 1.0],
+            "color":[0.564705882, 0.823529412, 0.925490196, 1]
+        },
+        "shading":"flat",
+        "AOStrength":0.5,
+        "lights":
+        [
+            {
+                "type":"area",
+                "location":[0.0, 0.0, 4.0],
+                "rotation":[0.0, 0.0, 0.0],
+                "intensity":20.0,
+                "size":1,
+                "shadow":true
+            },
+            {
+                "type":"area",
+                "location":[7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 90.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[-7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 270.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[0.0, -7.68, 1.45],
+                "rotation":[84.5, 0.0, 0.0],
+                "intensity":800,
+                "size":4,
+                "shadow":false,
+                "color":[0.564705882, 0.823529412, 0.925490196]
+            }
+        ],
+        "camera":
+        {
+            "location":[0.0, -2.10, 0.8],
+            "lookAt":[84, 0.0, 0.0],
+            "scale":1.5
+        }
+    },
+    {
+        "file_pattern": "*bimba*",
+        "image":
+        {
+            "res_x":1080,
+            "res_y":720,
+            "samples":50,
+            "exposure":1.0
+        },
+        "mesh":
+        {
+            "location":[0.0, 0.0, 0.0],
+            "rotation":[90, 0, 0],
+            "scale":[1.0, 1.0, 1.0],
+            "color":[0.564705882, 0.823529412, 0.925490196, 1]
+        },
+        "shading":"flat",
+        "AOStrength":0.5,
+        "lights":
+        [
+            {
+                "type":"area",
+                "location":[0.0, 0.0, 4.0],
+                "rotation":[0.0, 0.0, 0.0],
+                "intensity":20.0,
+                "size":1,
+                "shadow":true
+            },
+            {
+                "type":"area",
+                "location":[7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 90.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[-7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 270.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[0.0, -7.68, 1.45],
+                "rotation":[84.5, 0.0, 0.0],
+                "intensity":800,
+                "size":4,
+                "shadow":false,
+                "color":[0.564705882, 0.823529412, 0.925490196]
+            }
+        ],
+        "camera":
+        {
+            "location":[0.12, -2.10, 0.97],
+            "lookAt":[84, 0.0, 0.0],
+            "scale":0.5
+        }
+    },
+    {
+        "file_pattern": "*bimba*",
+        "image":
+        {
+            "res_x":1080,
+            "res_y":720,
+            "samples":50,
+            "exposure":1.0
+        },
+        "mesh":
+        {
+            "location":[0.0, 0.0, 0.0],
+            "rotation":[90, 0, 180],
+            "scale":[1.0, 1.0, 1.0],
+            "color":[0.564705882, 0.823529412, 0.925490196, 1]
+        },
+        "shading":"flat",
+        "AOStrength":0.5,
+        "lights":
+        [
+            {
+                "type":"area",
+                "location":[0.0, 0.0, 4.0],
+                "rotation":[0.0, 0.0, 0.0],
+                "intensity":20.0,
+                "size":1,
+                "shadow":true
+            },
+            {
+                "type":"area",
+                "location":[7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 90.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[-7.68, 0.0, 1.45],
+                "rotation":[85.7, 0.0, 270.0],
+                "intensity":100,
+                "size":4,
+                "shadow":false
+            },
+            {
+                "type":"area",
+                "location":[0.0, -7.68, 1.45],
+                "rotation":[84.5, 0.0, 0.0],
+                "intensity":800,
+                "size":4,
+                "shadow":false,
+                "color":[0.564705882, 0.823529412, 0.925490196]
+            }
+        ],
+        "camera":
+        {
+            "location":[2.7, -2.42, 1.41],
+            "lookAt":[79.7, 0, 48],
+            "scale":0.5
+        }
+    }
+]
