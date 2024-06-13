@@ -74,6 +74,15 @@ To compute the chamfer distance between two meshes run the following:
 ```python -m scripts.compute_chamfer --gt /path/to/gt/mesh --mesh /path/to/output/mesh```
 
 
+## Data
+
+Data is available [here](https://geometry.cs.ucl.ac.uk/projects/2022/cnnmaps/paper_docs/data.zip).
+
+## Related projects
+
+- [Neural Semantic Surface Maps](https://github.com/luca-morreale/nssm)
+- [Neural Surface Maps](https://github.com/luca-morreale/neural_surface_maps/)
+
 ## Bibtex
 
 ```
